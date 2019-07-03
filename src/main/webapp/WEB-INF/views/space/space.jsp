@@ -15,8 +15,15 @@
 
 <a href="/upload">UPLOAD FILE</a><br>
 
+<c:out value="${overload}"/>
+
 <c:forEach items="${files}" var="file">
-    <c:out value="${file.name}"/> <br>
+    <c:out value="${file.name}"/>
+    <a href="/space/delete/${file.name}">
+        <button>Delete</button>
+    </a><br>
 </c:forEach>
+<hr/>
+<c:out value="${memory}"/>
 </body>
 </html>

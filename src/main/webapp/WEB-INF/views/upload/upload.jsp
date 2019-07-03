@@ -11,8 +11,9 @@
     <title>Upload file</title>
 </head>
 <body>
-<h1>file upload</h1>
 
+<h1>file upload</h1><br>
+<h3>Max size is 1GB</h3>
 <form method="POST" action="/upload" enctype="multipart/form-data">
     <input type="file" name="file" /><br/><br/>
     <input type="submit" value="Submit" />
