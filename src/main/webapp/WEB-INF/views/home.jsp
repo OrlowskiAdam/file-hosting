@@ -17,6 +17,7 @@
     <span class="text2">file hosting</span>
     <input type="submit" onclick="location.href='http://localhost:8080/login'" value="Log me in"/>
     <input type="submit" onclick="location.href='http://localhost:8080/register'" value="Register"/>
+    <input type="submit" onclick="location.href='http://localhost:8080/space'" value="My space"/>
 </div>
 </main>
 </body>
