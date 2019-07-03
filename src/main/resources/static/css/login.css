@@ -7,6 +7,12 @@ body {
     font-family: 'Exo 2';
     background-image: url("/static/img/home.jpg");
 }
+
+img {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
 .layer {
     position: fixed;
     left: -300px;
@@ -34,7 +40,7 @@ main#box {
     left: 50%;
     transform: translate(-50%, -50%);
     background: #2c3e50;
-    opacity: 0.9;
+    opacity: 0.8;
     text-align: center;
     border-radius: 20px;
 }

@@ -1,29 +1,57 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: feruu
-  Date: 03.07.2019
-  Time: 10:39
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>My space</title>
+    <link rel="stylesheet" type="text/css" href="/css/space.css"/>
+    <script src="https://kit.fontawesome.com/e94dc59271.js"></script>
+    <script src="/js/parallax.js"></script>
 </head>
 <body>
+<main id="box">
+    <div class="layer" id="1">
+        <div class="parallax" id="welcome"><img src="http://hdqwalls.com/wallpapers/small-memory-lp.jpg">
+        </div>
+    </div>
 
-<a href="/upload">UPLOAD FILE</a><br>
+    <div class="left">
+        <div class="menu">
 
-<c:out value="${overload}"/>
+            <li class="item">
+                <a href="" class="btn"><i class="fas fa-user"></i>Profile</a>
+                <div class="smenu">
+                    <a href="">Settings</a>
+                </div>
+            </li>
 
-<c:forEach items="${files}" var="file">
-    <c:out value="${file.name}"/>
-    <a href="/space/delete/${file.name}">
-        <button>Delete</button>
-    </a><br>
-</c:forEach>
-<hr/>
-<c:out value="${memory}"/>
+            <li class="item">
+                <a href="" class="btn"><i class="fas fa-language"></i>Language</a>
+                <div class="smenu">
+                    <a href="">Polish</a>
+                    <a href="">English</a>
+                </div>
+            </li>
+
+            <li class="btn"></li>
+
+        </div>
+    </div>
+
+    <div id="upload">
+        <a href="/upload">&nbsp UPLOAD FILE &nbsp</a><br>
+    </div>
+    <div class="container">
+        <c:out value="${overload}"/>
+
+        <c:forEach items="${files}" var="file">
+            <a href="/space/download/${file.name}"><c:out value="${file.name}"/></a>
+            <a href="/space/delete/${file.name}">
+                <button><i class="fas fa-trash"></i></button>
+            </a>
+            <hr/>
+        </c:forEach>
+        <c:out value="${memory}"/>
+    </div>
+</main>
 </body>
 </html>

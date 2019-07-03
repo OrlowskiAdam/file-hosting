@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class GlobalExceptionHandler {
     @ExceptionHandler(MultipartException.class)
     public String handleError1(Model model,  MultipartException e, RedirectAttributes redirectAttributes) {
-        model.addAttribute("fileMemory", "0.00MB");
         return "upload/uploadError";
     }
 }

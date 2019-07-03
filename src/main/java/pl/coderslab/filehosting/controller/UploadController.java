@@ -71,8 +71,8 @@ public class UploadController {
         }
 
         //Jeśli plik przekracza dopuszczalną przestrzeń dysku to pokaże informacje o przeładowaniu dozwolonej pamięci
-        if (totalMemory + fileMemory > 150) {
-            model.addAttribute("totalMemory", 150 - totalMemory);
+        if (totalMemory + fileMemory > 2048) {
+            model.addAttribute("totalMemory", 2048 - totalMemory);
             model.addAttribute("fileMemory", fileMemory);
             return "upload/uploadError";
         } else {
