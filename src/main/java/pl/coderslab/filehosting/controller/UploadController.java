@@ -71,6 +71,7 @@ public class UploadController {
 
 
         String saveFileName = "";
+        int number = 1;
         //Sprawdza duplikaty w nazwie
         if (listOfFiles != null) {
             for (File files : listOfFiles) {
@@ -78,12 +79,19 @@ public class UploadController {
                 if (files.isFile() && files.getName().equals(file.getOriginalFilename())) {
                     //JEŚLI ISTNIEJE PLIK O TAKIEJ SAMEJ NAZWIE:
                     if (fileName.contains(".")) {
-                        String rawFileName = files.getName().substring(0, fileName.lastIndexOf(".") + 1);
+                        String rawFileName = files.getName().substring(0, fileName.lastIndexOf("."));
                         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
                         Pattern pattern = Pattern.compile("\\(([0-9]*)\\)");
                         Matcher matcher = pattern.matcher(rawFileName);
                         if (!matcher.find()) {
-                            saveFileName = fileName;
+                            saveFileName = rawFileName + "(" + number + ")." + extension;
+                            number++;
+                            for (File foo : listOfFiles) {
+                                if (foo.isFile() && foo.getName().equals(saveFileName)) {
+                                    saveFileName = rawFileName + "(" + number + ")." + extension;
+                                    number++;
+                                }
+                            }
                         } else {
                             int fileNumber = Integer.parseInt(matcher.group()) + 1;
                             String fileWithoutNumber = rawFileName.substring(0, fileName.lastIndexOf("\\("));

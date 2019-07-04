@@ -28,7 +28,6 @@ public class DownloadController {
             //Tablica buforowa
             byte[] data = new byte[1024];
 
-            //
             while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
                 outputStream.write(data, 0, nRead);
             }
