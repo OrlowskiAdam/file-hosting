@@ -19,11 +19,16 @@ public class DownloadController {
     public StreamingResponseBody downloadFile(@PathVariable String file, HttpSession session, HttpServletResponse response) throws IOException {
         User user = (User) session.getAttribute("user");
         Long id = user.getId();
+        response.setContentType("text/html;charset=UTF-8");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + file + "\"");
         InputStream inputStream = new FileInputStream(new File("D://hosting/" + id + "/" + file));
 
         return outputStream -> {
             int nRead;
+            //Tablica buforowa
             byte[] data = new byte[1024];
+
+            //
             while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
                 outputStream.write(data, 0, nRead);
             }

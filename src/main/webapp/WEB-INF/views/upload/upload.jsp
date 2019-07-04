@@ -24,7 +24,7 @@
         <h3>Max size is 1GB</h3>
         <hr/>
         <br>
-        <form method="POST" action="/upload" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
             <input type="file" name="file"/><br/><br/>
             <input type="submit" value="Submit"/><br>
             <hr/>

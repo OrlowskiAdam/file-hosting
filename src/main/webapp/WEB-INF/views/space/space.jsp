@@ -36,39 +36,36 @@
 
         </div>
     </div>
-    <a href="/upload">
+    <a href="/upload?dir=${dir}">
         <div id="upload">
             &nbsp UPLOAD FILE &nbsp<br>
         </div>
     </a>
-    <a href="/folder">
+    <a href="/folder?dir=${dir}">
         <div class="add">
             <i class="fas fa-folder-plus"></i><c:out value="${overload}"/>
         </div>
     </a>
     <div class="container">
-
-
         <c:forEach items="${directories}" var="directory">
             <div class="center">
-            <a href="#"><i class="fas fa-folder"></i>&nbsp &nbsp<c:out value="${directory.toString()}"/></a>
+            <a href="/space?dir=${dir}/${directory.toString()}" style="padding-top: 16px; display: inline-block;"><i class="fas fa-folder"></i>&nbsp &nbsp<c:out value="${directory.toString()}"/></a>
             <div class="option col-2">
                 <button type="button" class="btn btn-info"><i class="fas fa-info-circle"></i></button>
                 <button type="button" class="btn btn-secondary"><i class="fas fa-file-signature"></i></button>
-                <a href="/space/delete/${directory.toString()}">
+                <a href="/space/delete/${directory.toString()}?dir=${dir}">
                     <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                 </a>
             </div>
             <hr/>
             </div>
         </c:forEach>
-
         <c:forEach items="${files}" var="file">
-            <a href="/download/${file.name}"><c:out value="${file.name}"/></a>
+            <a href="/download/${file.name}" style="padding-top: 16px; display: inline-block;"><c:out value="${file.name}"/></a>
             <div class="option col-2">
                 <button type="button" class="btn btn-info"><i class="fas fa-info-circle"></i></button>
                 <button type="button" class="btn btn-secondary"><i class="fas fa-file-signature"></i></button>
-                <a href="/space/delete/${file.name}">
+                <a href="/space/delete/${file.name}?dir=${dir}">
                     <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                 </a>
             </div>

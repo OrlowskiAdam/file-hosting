@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class UploadController {
@@ -29,23 +31,18 @@ public class UploadController {
     }
 
     @PostMapping("/upload")
-    public String singleFileUpload(Model model, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpSession session) {
+    public String singleFileUpload(Model model, @RequestParam("file") MultipartFile file, @RequestParam(required = false) String dir, RedirectAttributes redirectAttributes, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        Long id = user.getId();
-        File folder = new File("D://hosting/" + id);
-        File[] listOfFiles = folder.listFiles();
+        Long userId = user.getId();
+        String curPath = "D://hosting/" + userId;
         long totalMemory = 0;
         long fileMemory = Math.round((file.getSize() / 1024.00) / 1024.0);
+        File folder = new File(curPath);
+        File[] listOfFiles = folder.listFiles();
 
         if (!folder.exists()) {
             folder.mkdir();
-        }
-
-        //Sprawdza czy plik jest załadowany
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:upload";
         }
 
         //Oblicza wagę wszystkich plików
@@ -59,12 +56,40 @@ public class UploadController {
             }
         }
 
+        if (dir != null) {
+            curPath += dir;
+        }
+
+        folder = new File(curPath);
+        listOfFiles = folder.listFiles();
+
+        //Sprawdza czy plik jest załadowany
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            return "redirect:upload";
+        }
+
+
+        String saveFileName = "";
         //Sprawdza duplikaty w nazwie
         if (listOfFiles != null) {
             for (File files : listOfFiles) {
-                if (files.isFile()) {
-                    if (files.getName().equals(file.getOriginalFilename())) {
-                        //JEŚLI ISTNIEJE PLIK O TAKIEJ SAMEJ NAZWIE:
+                String fileName = files.getName();
+                if (files.isFile() && files.getName().equals(file.getOriginalFilename())) {
+                    //JEŚLI ISTNIEJE PLIK O TAKIEJ SAMEJ NAZWIE:
+                    if (fileName.contains(".")) {
+                        String rawFileName = files.getName().substring(0, fileName.lastIndexOf(".") + 1);
+                        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+                        Pattern pattern = Pattern.compile("\\(([0-9]*)\\)");
+                        Matcher matcher = pattern.matcher(rawFileName);
+                        if (!matcher.find()) {
+                            saveFileName = fileName;
+                        } else {
+                            int fileNumber = Integer.parseInt(matcher.group()) + 1;
+                            String fileWithoutNumber = rawFileName.substring(0, fileName.lastIndexOf("\\("));
+                            saveFileName = fileWithoutNumber + "(" + fileNumber + ")." + extension;
+
+                        }
                     }
                 }
             }
@@ -77,32 +102,16 @@ public class UploadController {
             return "upload/uploadError";
         } else {
             try {
+                saveFileName = saveFileName.equals("") ? file.getOriginalFilename() : saveFileName;
                 byte[] bytes = file.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + id + "//" + file.getOriginalFilename());
+                Path path = Paths.get(curPath + "/" + saveFileName);
                 Files.write(path, bytes);
                 redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + file.getOriginalFilename() + "'");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return "redirect:/space";
+        return "redirect:/space?dir=" + dir;
     }
 
-    @GetMapping("/folder")
-    public String getFolder() {
-        return "upload/folder";
-    }
-
-    @PostMapping("/folder")
-    public String postFolder(HttpSession session, @RequestParam String folderName) {
-        User user = (User) session.getAttribute("user");
-        Long id = user.getId();
-        try {
-            new File("D://hosting/" + id + "/" + folderName).mkdir();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "redirect:/space";
-    }
 }
