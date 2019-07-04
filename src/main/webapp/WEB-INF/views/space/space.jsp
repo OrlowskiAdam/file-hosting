@@ -36,18 +36,42 @@
 
         </div>
     </div>
-
-    <div id="upload">
-        <a href="/upload">&nbsp UPLOAD FILE &nbsp</a><br>
-    </div>
+    <a href="/upload">
+        <div id="upload">
+            &nbsp UPLOAD FILE &nbsp<br>
+        </div>
+    </a>
+    <a href="/folder">
+        <div class="add">
+            <i class="fas fa-folder-plus"></i><c:out value="${overload}"/>
+        </div>
+    </a>
     <div class="container">
-        <c:out value="${overload}"/>
+
+
+        <c:forEach items="${directories}" var="directory">
+            <div class="center">
+            <a href="#"><i class="fas fa-folder"></i>&nbsp &nbsp<c:out value="${directory.toString()}"/></a>
+            <div class="option col-2">
+                <button type="button" class="btn btn-info"><i class="fas fa-info-circle"></i></button>
+                <button type="button" class="btn btn-secondary"><i class="fas fa-file-signature"></i></button>
+                <a href="/space/delete/${directory.toString()}">
+                    <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                </a>
+            </div>
+            <hr/>
+            </div>
+        </c:forEach>
 
         <c:forEach items="${files}" var="file">
-            <a href="/space/download/${file.name}"><c:out value="${file.name}"/></a>
-            <a href="/space/delete/${file.name}">
-                <button><i class="fas fa-trash"></i></button>
-            </a>
+            <a href="/download/${file.name}"><c:out value="${file.name}"/></a>
+            <div class="option col-2">
+                <button type="button" class="btn btn-info"><i class="fas fa-info-circle"></i></button>
+                <button type="button" class="btn btn-secondary"><i class="fas fa-file-signature"></i></button>
+                <a href="/space/delete/${file.name}">
+                    <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                </a>
+            </div>
             <hr/>
         </c:forEach>
         <c:out value="${memory}"/>

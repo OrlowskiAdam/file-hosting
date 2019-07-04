@@ -8,16 +8,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="/css/upload.css"/>
+    <script src="https://kit.fontawesome.com/e94dc59271.js"></script>
+    <script src="/js/parallax.js"></script>
     <title>Upload file</title>
 </head>
 <body>
-
-<h1>file upload</h1><br>
-<h3>Max size is 1GB</h3>
-<form method="POST" action="/upload" enctype="multipart/form-data">
-    <input type="file" name="file" /><br/><br/>
-    <input type="submit" value="Submit" />
-</form>
-
+<main id="box">
+    <div class="layer" id="1">
+        <div class="parallax" id="welcome"><img src="http://hdqwalls.com/wallpapers/small-memory-lp.jpg">
+        </div>
+    </div>
+    <div class="container">
+        <h1>File upload</h1><br>
+        <h3>Max size is 1GB</h3>
+        <hr/>
+        <br>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file"/><br/><br/>
+            <input type="submit" value="Submit"/><br>
+            <hr/>
+        </form>
+        <input type="submit" onclick="location.href='http://localhost:8080/space'" value="My space"/>
+    </div>
+</main>
 </body>
 </html>

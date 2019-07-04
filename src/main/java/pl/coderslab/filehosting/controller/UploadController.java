@@ -35,8 +35,8 @@ public class UploadController {
         Long id = user.getId();
         File folder = new File("D://hosting/" + id);
         File[] listOfFiles = folder.listFiles();
-        double totalMemory = 0;
-        double fileMemory = (file.getSize() / 1024.00) / 1024.0;
+        long totalMemory = 0;
+        long fileMemory = Math.round((file.getSize() / 1024.00) / 1024.0);
 
         if (!folder.exists()) {
             folder.mkdir();
@@ -52,7 +52,7 @@ public class UploadController {
         if (listOfFiles != null) {
             try {
                 for (File files : listOfFiles) {
-                    totalMemory = totalMemory + files.length() / (1024d * 1024d);
+                    totalMemory = Math.round(totalMemory + files.length() / (1024d * 1024d));
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();
@@ -85,6 +85,24 @@ public class UploadController {
                 e.printStackTrace();
             }
         }
+        return "redirect:/space";
+    }
+
+    @GetMapping("/folder")
+    public String getFolder() {
+        return "upload/folder";
+    }
+
+    @PostMapping("/folder")
+    public String postFolder(HttpSession session, @RequestParam String folderName) {
+        User user = (User) session.getAttribute("user");
+        Long id = user.getId();
+        try {
+            new File("D://hosting/" + id + "/" + folderName).mkdir();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/space";
     }
 }
