@@ -26,8 +26,8 @@
         <span id="errorMsg">You are trying to upload a file that weights: <span class="bold"> <c:out
                 value="${fileMemory}"/>MB</span><hr/> your free space: <span class="bold"><c:out
                 value="${totalMemory}"/>MB</span></span>
-        <input type="submit" onclick="location.href='http://localhost:8080/upload'" value="Upload again"/>
-        <input type="submit" onclick="location.href='http://localhost:8080/space'" value="My space"/>
+        <input type="submit" onclick="location.href='/upload'" value="Upload again"/>
+        <input type="submit" onclick="location.href='/space'" value="My space"/>
         <br>
         <div class="error-sign">
             <i class="fas fa-exclamation-triangle"></i>

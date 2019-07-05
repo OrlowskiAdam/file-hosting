@@ -27,7 +27,9 @@
         <form method="POST">
             <input type="text" name="folderName" placeholder="Folder name">
             <input type="submit" value="Add">
+            <hr/>
         </form>
+            <input type="submit" onclick="location.href='/space'" value="My space"/>
     </div>
 </main>
 </body>

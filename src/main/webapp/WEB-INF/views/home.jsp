@@ -16,10 +16,10 @@
 <div class="container">
     <span class="text1">Welcome to</span>
     <span class="text2">file hosting</span>
-    <c:if test="${empty sessionScope.user}"><input type="submit" onclick="location.href='http://localhost:8080/login'" value="Log me in"/></c:if>
-    <c:if test="${empty sessionScope.user}"><input type="submit" onclick="location.href='http://localhost:8080/register'" value="Register"/></c:if>
-    <c:if test="${not empty sessionScope.user}"><input type="submit" onclick="location.href='http://localhost:8080/space'" value="My space"/></c:if>
-    <c:if test="${not empty sessionScope.user}"><input type="submit" onclick="location.href='http://localhost:8080/logout'" value="Log out"/></c:if>
+    <c:if test="${empty sessionScope.user}"><input type="submit" onclick="location.href='/login'" value="Log me in"/></c:if>
+    <c:if test="${empty sessionScope.user}"><input type="submit" onclick="location.href='/register'" value="Register"/></c:if>
+    <c:if test="${not empty sessionScope.user}"><input type="submit" onclick="location.href='/space'" value="My space"/></c:if>
+    <c:if test="${not empty sessionScope.user}"><input type="submit" onclick="location.href='/logout'" value="Log out"/></c:if>
     <c:if test="${not empty sessionScope.user}"><div class="welcome">Logged in as <c:out value="${sessionScope.user.firstName}"></c:out>.</div></c:if>
 </div>
 </main>

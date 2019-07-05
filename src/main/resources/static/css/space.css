@@ -88,7 +88,7 @@ hr {
 .settings {
     font-size: 18px;
     text-align: left;
-    position: absolute;
+    position: fixed;
     padding: 20px;
     top: 84.5%;
     left: 96%;
@@ -138,7 +138,7 @@ hr {
 .logout {
     font-size: 18px;
     text-align: left;
-    position: absolute;
+    position: fixed;
     padding: 20px;
     top: 92%;
     left: 96%;

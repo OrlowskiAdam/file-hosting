@@ -28,6 +28,12 @@ public class NewFolderController {
         User user = (User) session.getAttribute("user");
         Long userId = user.getId();
         String path = "D://hosting/" + userId;
+
+        File folder = new File(path);
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+
         if (dir != null) {
             path += dir;
         }

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="/css/upload.css"/>
@@ -21,6 +22,7 @@
     </div>
     <div class="container">
         <h1>File upload</h1><br>
+        <span class="thin"><c:out value="${dir}"/></span>
         <h3>Max size is 1GB</h3>
         <hr/>
         <br>
@@ -29,7 +31,7 @@
             <input type="submit" value="Submit"/><br>
             <hr/>
         </form>
-        <input type="submit" onclick="location.href='http://localhost:8080/space'" value="My space"/>
+        <input type="submit" onclick="location.href='space'" value="My space"/>
     </div>
 </main>
 </body>

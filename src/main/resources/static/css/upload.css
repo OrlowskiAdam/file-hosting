@@ -28,6 +28,10 @@ h3 {
     padding:15px;
 }
 
+.thin {
+    font-size: 15px;
+}
+
 i {
     margin-top: 30px;
     color: white;

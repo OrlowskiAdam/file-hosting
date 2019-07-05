@@ -22,8 +22,14 @@ public class UploadController {
     private static String UPLOADED_FOLDER = "D://hosting//";
 
     @GetMapping("/upload")
-    public String index() {
-        return "upload/upload";
+    public String index(Model model, @RequestParam(required = false) String dir) {
+        if (!dir.equals("")) {
+            model.addAttribute("dir", dir);
+            return "upload/upload";
+        } else {
+            model.addAttribute("dir", "/");
+            return "upload/upload";
+        }
     }
 
     @PostMapping("/upload")
