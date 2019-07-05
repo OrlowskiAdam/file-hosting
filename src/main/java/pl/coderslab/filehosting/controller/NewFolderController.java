@@ -1,6 +1,7 @@
 package pl.coderslab.filehosting.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,8 +13,14 @@ import java.io.File;
 @Controller
 public class NewFolderController {
     @GetMapping("/folder")
-    public String getFolder() {
-        return "upload/folder";
+    public String getFolder(Model model, @RequestParam(required = false) String dir) {
+        if (dir.equals("")) {
+            model.addAttribute("dir", "/");
+            return "upload/folder";
+        } else {
+            model.addAttribute("dir", dir);
+            return "upload/folder";
+        }
     }
 
     @PostMapping("/folder")

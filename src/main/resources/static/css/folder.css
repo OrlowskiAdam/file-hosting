@@ -37,18 +37,14 @@ i {
     opacity: 0.9;
 }
 
-hr {
-    color: white;
-}
-
-#errorMsg {
+#info {
     line-height: 35px;
-    font-size: 20px;
+    font-size: 25px;
     color: white;
 }
 
-.bold {
-    font-weight: bold;
+.thin {
+    font-size: 15px;
 }
 
 .container {
@@ -68,6 +64,32 @@ hr {
 
 .container input[type = file] {
     border-radius: 24px;
+}
+
+.container input[type = text] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+hr {
+    color: white;
+    font-size: 20px;
+}
+
+
+.container input[type = text]:focus {
+    width: 280px;
+    border-color: #e67e22;
 }
 
 .welcome {
