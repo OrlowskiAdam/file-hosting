@@ -3,6 +3,7 @@ package pl.coderslab.filehosting.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import pl.coderslab.filehosting.entity.User;
 
@@ -16,12 +17,18 @@ import java.io.InputStream;
 @Controller
 public class DownloadController {
     @GetMapping("/download/{file}")
-    public StreamingResponseBody downloadFile(@PathVariable String file, HttpSession session, HttpServletResponse response) throws IOException {
+    public StreamingResponseBody downloadFile(@RequestParam(required = false) String dir, @PathVariable String file, HttpSession session, HttpServletResponse response) throws IOException {
         User user = (User) session.getAttribute("user");
         Long id = user.getId();
         response.setContentType("text/html;charset=UTF-8");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + file + "\"");
-        InputStream inputStream = new FileInputStream(new File("D://hosting/" + id + "/" + file));
+        String path = "D://hosting/" + id ;
+
+        if (dir != null) {
+            path += dir;
+        }
+
+        InputStream inputStream = new FileInputStream(new File(path + "/" + file));
 
         return outputStream -> {
             int nRead;

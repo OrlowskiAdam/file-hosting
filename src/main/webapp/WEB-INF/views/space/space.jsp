@@ -41,11 +41,34 @@
             &nbsp UPLOAD FILE &nbsp<br>
         </div>
     </a>
-    <a href="/folder?dir=${dir}">
-        <div class="add">
-            <i class="fas fa-folder-plus"></i><c:out value="${overload}"/>
+    <a href="/space">
+        <div class="fast-back">
+            <i class="fas fa-fast-backward"></i>
         </div>
     </a>
+    <a href="/space/lastPath?dir=${dir}">
+        <div class="back">
+            <i class="fas fa-step-backward"></i>
+        </div>
+    </a>
+    <a href="/folder?dir=${dir}">
+        <div class="add">
+            <i class="fas fa-folder-plus"></i>
+        </div>
+    </a>
+    <a href="/logout">
+        <div class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+    </a>
+    <a href="/settings">
+        <div class="settings">
+            <i class="fas fa-cogs"></i>
+        </div>
+    </a>
+    <div class="path">
+        <c:out value="${dir}"/>
+    </div>
     <div class="container">
         <c:forEach items="${directories}" var="directory">
             <div class="center">
@@ -61,7 +84,7 @@
             </div>
         </c:forEach>
         <c:forEach items="${files}" var="file">
-            <a href="/download/${file.name}" style="padding-top: 16px; display: inline-block;"><c:out value="${file.name}"/></a>
+            <a href="/download/${file.name}?dir=${dir}" style="padding-top: 16px; display: inline-block;"><c:out value="${file.name}"/></a>
             <div class="option col-2">
                 <button type="button" class="btn btn-info"><i class="fas fa-info-circle"></i></button>
                 <button type="button" class="btn btn-secondary"><i class="fas fa-file-signature"></i></button>
@@ -71,7 +94,7 @@
             </div>
             <hr/>
         </c:forEach>
-        <c:out value="${memory}"/>
+<%--        <c:out value="${memory}"/>--%>
     </div>
 </main>
 </body>

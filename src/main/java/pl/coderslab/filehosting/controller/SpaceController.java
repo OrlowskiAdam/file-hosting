@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.filehosting.entity.User;
+
 import javax.servlet.http.HttpSession;
 import java.io.File;
 
@@ -63,5 +64,14 @@ public class SpaceController {
             }
         }
         return "redirect:/space?dir=" + dir;
+    }
+
+    @RequestMapping("/lastPath")
+    public String back(@RequestParam(required = false) String dir) {
+        if (!dir.equals("")) {
+            String lastPath = dir.substring(0, dir.lastIndexOf("/"));
+            return "redirect:/space?dir=" + lastPath;
+        }
+        return "redirect:/space";
     }
 }

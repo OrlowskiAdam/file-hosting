@@ -110,7 +110,9 @@ public class UploadController {
             return "upload/uploadError";
         } else {
             try {
-                saveFileName = saveFileName.equals("") ? file.getOriginalFilename() : saveFileName;
+                if (saveFileName.equals("")) {
+                    saveFileName = file.getOriginalFilename();
+                }
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(curPath + "/" + saveFileName);
                 Files.write(path, bytes);
