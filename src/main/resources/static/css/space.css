@@ -18,9 +18,15 @@ img {
     z-index: -1;
 }
 
+hr {
+    color: white;
+    margin: 15px;
+}
+
 .item-a {
     grid-area: header;
     justify-self: center;
+    align-self: center;
 }
 
 .item-b {
@@ -203,5 +209,6 @@ button.btn-danger:hover {
 }
 
 .control-icons {
+    padding: 20px;
     display: inline;
 }
