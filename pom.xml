@@ -11,7 +11,7 @@
     <groupId>pl.coderslab</groupId>
     <artifactId>file-hosting</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>file-hosting</name>
     <description>File Hosting</description>
 
