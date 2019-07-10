@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.coderslab.filehosting.dto.UserDto;
 import pl.coderslab.filehosting.entity.User;
 
 import javax.servlet.http.HttpSession;
@@ -35,16 +36,16 @@ public class UploadController {
     @PostMapping("/upload")
     public String singleFileUpload(Model model, @RequestParam("file") MultipartFile file, @RequestParam(required = false) String dir, RedirectAttributes redirectAttributes, HttpSession session) {
 
-        User user = (User) session.getAttribute("user");
+        UserDto user = (UserDto) session.getAttribute("user");
         Long userId = user.getId();
-        String curPath = "D://hosting/" + userId;
+        String curPath = "hosting/" + userId;
         long totalMemory = 0;
         long fileMemory = Math.round((file.getSize() / 1024.00) / 1024.0);
         File folder = new File(curPath);
         File[] listOfFiles = folder.listFiles();
 
         if (!folder.exists()) {
-            folder.mkdir();
+            folder.mkdirs();
         }
 
         //Oblicza wagę wszystkich plików

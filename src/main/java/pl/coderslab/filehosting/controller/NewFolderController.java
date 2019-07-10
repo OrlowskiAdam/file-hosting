@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.filehosting.dto.UserDto;
 import pl.coderslab.filehosting.entity.User;
 
 import javax.servlet.http.HttpSession;
@@ -25,7 +26,7 @@ public class NewFolderController {
 
     @PostMapping("/folder")
     public String postFolder(HttpSession session, @RequestParam String folderName, @RequestParam(required = false) String dir) {
-        User user = (User) session.getAttribute("user");
+        UserDto user = (UserDto) session.getAttribute("user");
         Long userId = user.getId();
         String path = "D://hosting/" + userId;
 
