@@ -21,7 +21,7 @@
 <form:form method="post" modelAttribute="user" class="box">
     <h1>Login</h1>
     <hr/>
-    <form:input type="login" path="login" placeholder="Username"/>
+    <form:input type="password" path="login" placeholder="Username"/>
     <form:errors path="login" cssClass="error"/>
     <form:password path="password" placeholder="Password"/>
     <form:errors path="password" cssClass="error"/>

@@ -3,6 +3,7 @@ package pl.coderslab.filehosting.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.filehosting.dto.UserDto;
 import pl.coderslab.filehosting.entity.User;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,7 @@ public class SpaceController {
 
     @RequestMapping("")
     public String space(Model model, HttpSession session, @RequestParam(required = false) String dir) {
-        User user = (User) session.getAttribute("user");
+        UserDto user = (UserDto) session.getAttribute("user");
         Long userId = user.getId();
         String path = "D://hosting/" + userId;
         if (dir != null) {
