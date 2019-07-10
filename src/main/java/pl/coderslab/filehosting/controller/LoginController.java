@@ -1,6 +1,6 @@
 package pl.coderslab.filehosting.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,17 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.filehosting.UserMapper;
 import pl.coderslab.filehosting.entity.User;
 import pl.coderslab.filehosting.repository.UserRepository;
-import pl.coderslab.filehosting.validation.UserRegisterValidationGroup;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.groups.Default;
 
 @Controller
+@RequiredArgsConstructor
 public class LoginController {
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -29,7 +31,9 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String saveRegistrationForm(@Validated({UserRegisterValidationGroup.class, Default.class}) User user, BindingResult result, @RequestParam String password2) {
+    public String saveRegistrationForm(@Validated({Default.class}) User user,
+                                       BindingResult result,
+                                       @RequestParam String password2) {
         if (result.hasErrors()) {
             return "login/register";
         }
@@ -83,7 +87,7 @@ public class LoginController {
             return "login/login";
         }
 
-        session.setAttribute("user", existingUser);
+        session.setAttribute("user", userMapper.mapUserToDataObject(existingUser));
         return "redirect:/";
     }
 
