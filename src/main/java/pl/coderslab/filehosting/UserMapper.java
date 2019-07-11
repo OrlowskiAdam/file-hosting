@@ -8,6 +8,7 @@ import pl.coderslab.filehosting.entity.User;
 public class UserMapper {
     public UserDto mapUserToDataObject(User user){
         return UserDto.builder()
+                .id(user.getId())
                 .login(user.getLogin())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())

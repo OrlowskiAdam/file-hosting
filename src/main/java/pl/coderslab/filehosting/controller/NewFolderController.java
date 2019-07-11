@@ -1,18 +1,22 @@
 package pl.coderslab.filehosting.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.filehosting.dto.UserDto;
-import pl.coderslab.filehosting.entity.User;
+import pl.coderslab.filehosting.service.NewFolderService;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
 
 @Controller
+@RequiredArgsConstructor
 public class NewFolderController {
+    private final NewFolderService newFolderService;
+
     @GetMapping("/folder")
     public String getFolder(Model model, @RequestParam(required = false) String dir) {
         if (dir.equals("")) {
@@ -25,25 +29,13 @@ public class NewFolderController {
     }
 
     @PostMapping("/folder")
-    public String postFolder(HttpSession session, @RequestParam String folderName, @RequestParam(required = false) String dir) {
+    public String postFolder(HttpSession session, @RequestParam String folderName,
+                             @RequestParam(required = false) String dir) {
         UserDto user = (UserDto) session.getAttribute("user");
         Long userId = user.getId();
-        String path = "D://hosting/" + userId;
 
-        File folder = new File(path);
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
-
-        if (dir != null) {
-            path += dir;
-        }
-        try {
-            new File(path + "/" + folderName).mkdir();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        String directoryPath = newFolderService.getDirectoryPath(userId, dir);
+        newFolderService.createFolder(directoryPath, folderName);
         return "redirect:/space?dir=" + dir;
     }
 }
